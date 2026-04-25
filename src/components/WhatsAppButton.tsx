@@ -1,0 +1,32 @@
+"use client";
+import { WHATSAPP_NUMBER } from "@/data/catalog";
+import { motion } from "framer-motion";
+import styles from "./WhatsAppButton.module.css";
+
+function WhatsAppIcon() {
+  return (
+    <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff">
+      <path d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 3.5 1.129 6.742 3.047 9.379L1.054 31.25l6.1-1.953A15.9 15.9 0 0016.004 32C24.826 32 32 24.826 32 16.004S24.826 0 16.004 0zm9.32 22.602c-.387 1.09-1.93 1.996-3.148 2.262-.836.176-1.926.32-5.602-1.203-4.7-1.945-7.723-6.71-7.957-7.02-.226-.313-1.836-2.45-1.836-4.672 0-2.223 1.16-3.313 1.574-3.762.387-.418 1.008-.578 1.375-.578.168 0 .316.008.453.016.414.016.621.04.895.695.34.82 1.168 2.844 1.27 3.05.1.207.2.488.065.781-.129.3-.242.434-.45.672-.206.239-.402.422-.608.68-.191.222-.407.46-.168.883.238.418 1.063 1.754 2.285 2.84 1.57 1.394 2.89 1.832 3.308 2.03.414.2.66.168.902-.1.25-.273 1.063-1.234 1.348-1.66.281-.418.566-.348.953-.207.39.137 2.465 1.164 2.887 1.375.418.21.7.316.8.492.102.175.102 1.023-.285 2.117z"/>
+    </svg>
+  );
+}
+
+export default function WhatsAppButton() {
+  return (
+    <motion.a
+      href={`https://wa.me/${WHATSAPP_NUMBER}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={styles.fab}
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      transition={{ delay: 1.5, type: "spring", stiffness: 200 }}
+      whileHover={{ scale: 1.12 }}
+      whileTap={{ scale: 0.95 }}
+      aria-label="Chat on WhatsApp"
+    >
+      <WhatsAppIcon />
+      <span className={styles.tooltip}>WhatsApp Us!</span>
+    </motion.a>
+  );
+}

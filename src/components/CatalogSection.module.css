@@ -1,0 +1,21 @@
+.section { padding: 100px 0; background: var(--bg-secondary); }
+.filters { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+.filterBtn {
+  padding: 8px 22px; border-radius: 50px; font-size: 0.85rem; font-weight: 500;
+  background: rgba(255,255,255,0.04); color: var(--text-secondary);
+  border: 1px solid var(--border-light); transition: all 0.3s;
+}
+.filterBtn:hover { color: var(--gold-light); border-color: rgba(212,168,83,0.3); }
+.filterActive {
+  background: rgba(212,168,83,0.12) !important;
+  color: var(--gold-light) !important;
+  border-color: var(--gold) !important;
+}
+.grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+@media(max-width:1024px) { .grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:640px) {
+  .section { padding: 72px 0; }
+  .grid { grid-template-columns: 1fr; gap: 20px; }
+}
