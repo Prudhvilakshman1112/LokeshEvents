@@ -74,6 +74,64 @@
   transition: all 0.3s; text-decoration: none;
 }
 .waBtn:hover { background: #20bd5a; box-shadow: 0 6px 20px rgba(37,211,102,0.3); }
+
+/* ── Customize Toggle ── */
+.customizeToggle {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--gold);
+  font-size: 0.92rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1.5px solid rgba(212,168,83,0.35);
+  transition: all 0.35s var(--transition);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+.customizeToggle:hover {
+  background: rgba(212,168,83,0.08);
+  border-color: rgba(212,168,83,0.55);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(212,168,83,0.15);
+}
+.customizeActive {
+  background: rgba(212,168,83,0.1);
+  border-color: var(--gold);
+}
+.customizeIcon {
+  color: var(--gold-light);
+  transition: transform 0.4s;
+}
+.customizeToggle:hover .customizeIcon {
+  transform: rotate(15deg) scale(1.15);
+}
+.customizeShimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212,168,83,0.08) 25%,
+    rgba(212,168,83,0.18) 50%,
+    rgba(212,168,83,0.08) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: customizeShimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes customizeShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
 @media(max-width:768px) {
   .layout { grid-template-columns: 1fr; }
   .detailCol { padding: 24px; padding-top: 0; }

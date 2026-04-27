@@ -1,9 +1,10 @@
 "use client";
-import { useEffect } from "react";
-import { motion } from "framer-motion";
-import { X, Check, MapPin, Clock } from "lucide-react";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, Check, MapPin, Clock, Sparkles } from "lucide-react";
 import WhatsAppSvg from "./WhatsAppSvg";
 import ImageCarousel from "./ImageCarousel";
+import PackageCustomizer from "./PackageCustomizer";
 import { WHATSAPP_NUMBER } from "@/data/catalog";
 import type { CatalogItem } from "@/data/catalog";
 import styles from "./CatalogModal.module.css";
@@ -17,6 +18,7 @@ function getWhatsAppLink(item: CatalogItem) {
 
 export default function CatalogModal({ item, onClose }: Props) {
   const discount = Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100);
+  const [showCustomizer, setShowCustomizer] = useState(false);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -100,6 +102,31 @@ export default function CatalogModal({ item, onClose }: Props) {
               <span><MapPin size={14} /> Vizag Beach Road</span>
               <span><Clock size={14} /> 1-2 Hours</span>
             </div>
+
+            {/* ── Customize Toggle ── */}
+            <button
+              className={`${styles.customizeToggle} ${showCustomizer ? styles.customizeActive : ""}`}
+              onClick={() => setShowCustomizer((p) => !p)}
+            >
+              <span className={styles.customizeShimmer} />
+              <Sparkles size={16} className={styles.customizeIcon} />
+              {showCustomizer ? "Hide Customizer" : "Customize Package"}
+            </button>
+
+            {/* ── Customizer Panel ── */}
+            <AnimatePresence>
+              {showCustomizer && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  style={{ overflow: "hidden" }}
+                >
+                  <PackageCustomizer item={item} />
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <a
               href={getWhatsAppLink(item)}

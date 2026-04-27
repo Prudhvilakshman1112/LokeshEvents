@@ -1,3 +1,9 @@
+export interface CustomizableItem {
+  name: string;
+  qty: number;
+  unitPrice: number;
+}
+
 export interface CatalogItem {
   id: string;
   title: string;
@@ -15,6 +21,7 @@ export interface CatalogItem {
   benefits: string[];
   badges: string[];
   eventFlow: string[];
+  customizableItems: CustomizableItem[];
 }
 
 export const catalogItems: CatalogItem[] = [
@@ -47,6 +54,14 @@ export const catalogItems: CatalogItem[] = [
       "Teddy doll placed for the reveal",
       "Cake cutting ceremony",
       "Fire gun celebration & photos",
+    ],
+    customizableItems: [
+      { name: "Teddy Doll", qty: 1, unitPrice: 600 },
+      { name: "Half KG Cool Cake", qty: 1, unitPrice: 800 },
+      { name: "Fire Gun", qty: 2, unitPrice: 250 },
+      { name: "Balloon Bunch", qty: 0, unitPrice: 200 },
+      { name: "Flower Bouquet", qty: 0, unitPrice: 500 },
+      { name: "Photo Frame (A4)", qty: 0, unitPrice: 350 },
     ],
   },
   {
@@ -81,6 +96,16 @@ export const catalogItems: CatalogItem[] = [
       "Surprise reveal at chosen spot",
       "Cake cutting & celebration",
       "Fire gun finale & photo session",
+    ],
+    customizableItems: [
+      { name: "Half KG Cool Cake", qty: 1, unitPrice: 800 },
+      { name: "Photo Frame (A4)", qty: 1, unitPrice: 350 },
+      { name: "Calendar", qty: 1, unitPrice: 300 },
+      { name: "Mug with Printing", qty: 1, unitPrice: 250 },
+      { name: "Fire Gun", qty: 2, unitPrice: 250 },
+      { name: "Teddy Doll", qty: 0, unitPrice: 600 },
+      { name: "Flower Bouquet", qty: 0, unitPrice: 500 },
+      { name: "Balloon Bunch", qty: 0, unitPrice: 200 },
     ],
   },
   {
@@ -119,6 +144,18 @@ export const catalogItems: CatalogItem[] = [
       "Teddy & bouquet presentation",
       "Cake cutting celebration",
       "Group photo session",
+    ],
+    customizableItems: [
+      { name: "Teddy Doll", qty: 1, unitPrice: 600 },
+      { name: "Flower Bouquet", qty: 1, unitPrice: 500 },
+      { name: "Photo Frame (A4)", qty: 1, unitPrice: 350 },
+      { name: "Mug with Printing", qty: 1, unitPrice: 250 },
+      { name: "Greeting Card", qty: 1, unitPrice: 150 },
+      { name: "Calendar Book", qty: 1, unitPrice: 300 },
+      { name: "Half KG Cool Cake", qty: 1, unitPrice: 800 },
+      { name: "Stranger Member", qty: 4, unitPrice: 350 },
+      { name: "Fire Gun", qty: 0, unitPrice: 250 },
+      { name: "Balloon Bunch", qty: 0, unitPrice: 200 },
     ],
   },
   {
@@ -159,6 +196,19 @@ export const catalogItems: CatalogItem[] = [
       "Miniature & frame reveal",
       "Cake cutting ceremony",
       "Fire gun finale & celebrations",
+    ],
+    customizableItems: [
+      { name: "Stranger Member", qty: 4, unitPrice: 350 },
+      { name: "Single Flower", qty: 4, unitPrice: 100 },
+      { name: "Photo Frame", qty: 1, unitPrice: 350 },
+      { name: "6x8 Inch Miniature", qty: 1, unitPrice: 800 },
+      { name: "Mug with Printing", qty: 1, unitPrice: 250 },
+      { name: "Greeting Card", qty: 1, unitPrice: 150 },
+      { name: "Half KG Cake", qty: 1, unitPrice: 800 },
+      { name: "Calendar", qty: 1, unitPrice: 300 },
+      { name: "Fire Gun", qty: 2, unitPrice: 250 },
+      { name: "Teddy Doll", qty: 0, unitPrice: 600 },
+      { name: "Balloon Bunch", qty: 0, unitPrice: 200 },
     ],
   },
   {
@@ -204,6 +254,18 @@ export const catalogItems: CatalogItem[] = [
       "Flowers & gifts presentation",
       "Cake cutting & celebrations",
       "Photo session with the crew",
+    ],
+    customizableItems: [
+      { name: "Stranger Member", qty: 4, unitPrice: 350 },
+      { name: "Dancing Teddy Doll", qty: 1, unitPrice: 1500 },
+      { name: "Single Flower", qty: 4, unitPrice: 100 },
+      { name: "Half KG Cool Cake", qty: 1, unitPrice: 800 },
+      { name: "Photo Frame", qty: 1, unitPrice: 350 },
+      { name: "Calendar", qty: 1, unitPrice: 300 },
+      { name: "Mug with Printing", qty: 1, unitPrice: 250 },
+      { name: "Cupboard Miniature (8x10)", qty: 1, unitPrice: 1200 },
+      { name: "Fire Gun", qty: 0, unitPrice: 250 },
+      { name: "Balloon Bunch", qty: 0, unitPrice: 200 },
     ],
   },
   {
@@ -253,6 +315,19 @@ export const catalogItems: CatalogItem[] = [
       "Cake cutting at midnight",
       "Fire celebrations & video shoot",
       "Professional video delivery",
+    ],
+    customizableItems: [
+      { name: "Stranger Member", qty: 4, unitPrice: 350 },
+      { name: "Dancing Teddy Doll", qty: 1, unitPrice: 1500 },
+      { name: "Single Flower", qty: 4, unitPrice: 100 },
+      { name: "Half KG Cool Cake", qty: 1, unitPrice: 800 },
+      { name: "Photo Frame", qty: 1, unitPrice: 350 },
+      { name: "Calendar", qty: 1, unitPrice: 300 },
+      { name: "Mug with Printing", qty: 1, unitPrice: 250 },
+      { name: "Cupboard Miniature (8x10)", qty: 1, unitPrice: 1200 },
+      { name: "Professionally Edited Video", qty: 1, unitPrice: 2500 },
+      { name: "Fire Gun", qty: 0, unitPrice: 250 },
+      { name: "Balloon Bunch", qty: 0, unitPrice: 200 },
     ],
   },
   {
@@ -309,6 +384,22 @@ export const catalogItems: CatalogItem[] = [
       "Cake cutting & cheers",
       "Photo session in candlelight",
     ],
+    customizableItems: [
+      { name: "Round Table Setup", qty: 1, unitPrice: 1500 },
+      { name: "Cheers Glasses", qty: 2, unitPrice: 150 },
+      { name: "Grand Fire Entry", qty: 1, unitPrice: 1000 },
+      { name: "Biryani", qty: 1, unitPrice: 600 },
+      { name: "Starter", qty: 1, unitPrice: 400 },
+      { name: "Cool Drink", qty: 2, unitPrice: 100 },
+      { name: "Full Candle Setup", qty: 1, unitPrice: 800 },
+      { name: "Bluetooth Speaker", qty: 1, unitPrice: 500 },
+      { name: "Photo Frame", qty: 1, unitPrice: 350 },
+      { name: "Calendar", qty: 1, unitPrice: 300 },
+      { name: "Mug with Printing", qty: 1, unitPrice: 250 },
+      { name: "Cupboard Miniature (8x10)", qty: 1, unitPrice: 1200 },
+      { name: "Half KG Cool Cake", qty: 0, unitPrice: 800 },
+      { name: "Balloon Bunch", qty: 0, unitPrice: 200 },
+    ],
   },
 ];
 
@@ -353,6 +444,23 @@ export const portfolioImages = [
     title: "Prank Surprise Event",
     category: "Prank",
   },
+];
+
+/** Placeholder video testimonial slots — replace videoUrl with real URLs */
+export interface CustomerVideo {
+  id: string;
+  title: string;
+  customerName: string;
+  videoUrl: string; // empty = "Coming Soon" placeholder
+}
+
+export const customerVideos: CustomerVideo[] = [
+  { id: "v1", title: "Birthday Surprise Reaction", customerName: "Priya & Rahul", videoUrl: "" },
+  { id: "v2", title: "Candlelight Dinner Experience", customerName: "Anitha & Kiran", videoUrl: "" },
+  { id: "v3", title: "Stranger Surprise Memories", customerName: "Sneha & Vikram", videoUrl: "" },
+  { id: "v4", title: "Midnight Celebration Vibes", customerName: "Divya & Arjun", videoUrl: "" },
+  { id: "v5", title: "Prank Surprise Fun", customerName: "Meera & Sai", videoUrl: "" },
+  { id: "v6", title: "Beach Road Romance", customerName: "Lakshmi & Ravi", videoUrl: "" },
 ];
 
 export const WHATSAPP_NUMBER = "917207221469";
