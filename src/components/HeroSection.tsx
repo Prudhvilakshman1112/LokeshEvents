@@ -1,10 +1,30 @@
 "use client";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, ChevronDown } from "lucide-react";
 import styles from "./HeroSection.module.css";
 
+/* Deterministic pseudo-random so SSR and client always match */
+function seededRandom(seed: number) {
+  const x = Math.sin(seed * 9301 + 49297) * 49297;
+  return x - Math.floor(x);
+}
+
 export default function HeroSection() {
   const titleWords = ["Create", "Magical", "Moments"];
+
+  /* Compute once; values are stable across server & client */
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 20 }).map((_, i) => ({
+        left: Math.round(seededRandom(i * 3 + 1) * 10000) / 100,
+        bottom: Math.round(seededRandom(i * 3 + 2) * 3000) / 100,
+        xDrift: Math.round((seededRandom(i * 3 + 3) - 0.5) * 6000) / 100,
+        duration: Math.round((3 + seededRandom(i * 7) * 3) * 100) / 100,
+        delay: Math.round(seededRandom(i * 11) * 500) / 100,
+      })),
+    []
+  );
 
   return (
     <section id="hero" className={styles.hero}>
@@ -14,7 +34,7 @@ export default function HeroSection() {
       </div>
 
       <div className={styles.particles}>
-        {Array.from({ length: 20 }).map((_, i) => (
+        {particles.map((p, i) => (
           <motion.span
             key={i}
             className={styles.particle}
@@ -22,15 +42,15 @@ export default function HeroSection() {
             animate={{
               opacity: [0, 1, 0],
               y: [-20, -120],
-              x: [0, (Math.random() - 0.5) * 60],
+              x: [0, p.xDrift],
             }}
             transition={{
-              duration: 3 + Math.random() * 3,
+              duration: p.duration,
               repeat: Infinity,
-              delay: Math.random() * 5,
+              delay: p.delay,
               ease: "easeOut",
             }}
-            style={{ left: `${Math.random() * 100}%`, bottom: `${Math.random() * 30}%` }}
+            style={{ left: `${p.left}%`, bottom: `${p.bottom}%` }}
           />
         ))}
       </div>
