@@ -19,9 +19,12 @@ const categories = ["All", ...Array.from(allCats)];
 export default function PortfolioSection() {
   const [active, setActive] = useState("All");
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+  const [expandedImage, setExpandedImage] = useState<string | null>(null);
 
   const closeVideo = useCallback(() => setPlayingVideo(null), []);
+  const closeImage = useCallback(() => setExpandedImage(null), []);
   useVideoBackHandler(!!playingVideo, closeVideo);
+  useVideoBackHandler(!!expandedImage, closeImage);
 
   const filteredImages = active === "All" ? portfolioImages : portfolioImages.filter((p) => p.category === active);
   const filteredVideos = active === "All" ? liveVideos : liveVideos.filter((v) => v.category === active);
@@ -65,7 +68,7 @@ export default function PortfolioSection() {
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
               >
-                <div className={styles.imgWrap}>
+                <div className={styles.imgWrap} onClick={() => setExpandedImage(img.src)} style={{ cursor: "pointer" }}>
                   <img src={img.src} alt={img.title} className={styles.img} loading="lazy" />
                   <div className={styles.cardOverlay}>
                     <span className={styles.cardTitle}>{img.title}</span>
@@ -125,6 +128,8 @@ export default function PortfolioSection() {
                     initial={{ opacity: 0, x: 40 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: (filteredVideos.length + i) * 0.06 }}
+                    onClick={() => setExpandedImage(img.src)}
+                    style={{ cursor: "pointer" }}
                   >
                     <img src={img.src} alt={img.title} className={styles.liveImgThumb} loading="lazy" />
                     <div className={styles.videoInfo}>
@@ -147,7 +152,7 @@ export default function PortfolioSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setPlayingVideo(null)}
+            onClick={closeVideo}
           >
             <motion.div
               className={styles.fullPlayer}
@@ -157,7 +162,7 @@ export default function PortfolioSection() {
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <button className={styles.fullClose} onClick={() => setPlayingVideo(null)}>
+              <button className={styles.fullClose} onClick={closeVideo}>
                 <X size={22} />
               </button>
               <video
@@ -168,6 +173,33 @@ export default function PortfolioSection() {
                 playsInline
               />
             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Fullscreen image viewer */}
+      <AnimatePresence>
+        {expandedImage && (
+          <motion.div
+            className={styles.fullOverlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeImage}
+          >
+            <button className={styles.fullClose} onClick={closeImage} style={{ zIndex: 10 }}>
+              <X size={22} />
+            </button>
+            <motion.img
+              src={expandedImage}
+              alt="Expanded view"
+              className={styles.fullImage}
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            />
           </motion.div>
         )}
       </AnimatePresence>

@@ -156,6 +156,18 @@
 .fullClose:hover { background: rgba(255,255,255,0.3); }
 .fullVideo { width: 100%; max-height: 80vh; display: block; }
 
+/* Fullscreen image viewer */
+.fullImage {
+  max-width: 92vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  touch-action: manipulation;
+  user-select: none;
+}
+.imgWrap { cursor: pointer; }
+
 @media(max-width:1024px) {
   .grid { grid-template-columns: repeat(3,1fr); }
   .videoCard { flex: 0 0 180px; }
