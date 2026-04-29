@@ -2,6 +2,7 @@
 import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import { ChevronLeft, ChevronRight, Play, X } from "lucide-react";
+import { useVideoBackHandler } from "@/hooks/useVideoBackHandler";
 import styles from "./ImageCarousel.module.css";
 
 interface Props {
@@ -25,6 +26,9 @@ export default function ImageCarousel({ images, videos = [], alt, size = "card",
   const [direction, setDirection] = useState(0);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const closeVideo = useCallback(() => setPlayingVideo(null), []);
+  useVideoBackHandler(!!playingVideo, closeVideo);
 
   const paginate = useCallback(
     (dir: number) => {

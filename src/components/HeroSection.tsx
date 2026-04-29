@@ -111,7 +111,7 @@ export default function HeroSection() {
         >
           <div className={styles.stat}><strong>500+</strong><span>Events Done</span></div>
           <div className={styles.statDiv} />
-          <div className={styles.stat}><strong>7</strong><span>Unique Packages</span></div>
+          <div className={styles.stat}><strong>11</strong><span>Unique Packages</span></div>
           <div className={styles.statDiv} />
           <div className={styles.stat}><strong>4.9★</strong><span>Client Rating</span></div>
         </motion.div>

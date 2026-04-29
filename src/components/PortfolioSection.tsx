@@ -1,10 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 import { portfolioImages } from "@/data/catalog";
 import { liveVideos, liveImages } from "@/data/liveVideos";
 import AnimatedSection from "./AnimatedSection";
+import { useVideoBackHandler } from "@/hooks/useVideoBackHandler";
 import styles from "./PortfolioSection.module.css";
 
 // Merge categories from portfolio images, live videos, and live images
@@ -18,6 +19,9 @@ const categories = ["All", ...Array.from(allCats)];
 export default function PortfolioSection() {
   const [active, setActive] = useState("All");
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+
+  const closeVideo = useCallback(() => setPlayingVideo(null), []);
+  useVideoBackHandler(!!playingVideo, closeVideo);
 
   const filteredImages = active === "All" ? portfolioImages : portfolioImages.filter((p) => p.category === active);
   const filteredVideos = active === "All" ? liveVideos : liveVideos.filter((v) => v.category === active);
@@ -100,7 +104,7 @@ export default function PortfolioSection() {
                         muted
                         loop
                         playsInline
-                        preload="metadata"
+                        preload="none"
                         onMouseEnter={(e) => e.currentTarget.play()}
                         onMouseLeave={(e) => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }}
                       />

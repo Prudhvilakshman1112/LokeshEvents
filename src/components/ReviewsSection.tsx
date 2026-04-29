@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, Send, Play, User, Quote, MessageCircle, Film } from "lucide-react";
+import { Star, Send, Play, User, Quote, MessageCircle } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import WhatsAppSvg from "./WhatsAppSvg";
 import { submitReview, fetchReviews } from "@/lib/firebase";
@@ -128,7 +128,7 @@ function VideoCard({
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
             onMouseEnter={(e) => e.currentTarget.play()}
             onMouseLeave={(e) => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }}
           />

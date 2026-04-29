@@ -24,7 +24,17 @@ export default function CatalogModal({ item, onClose }: Props) {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handler);
-    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", handler); };
+
+    // Push history state so mobile back button closes modal
+    window.history.pushState({ modalOpen: true }, "");
+    const handlePop = () => onClose();
+    window.addEventListener("popstate", handlePop);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handler);
+      window.removeEventListener("popstate", handlePop);
+    };
   }, [onClose]);
 
   return (

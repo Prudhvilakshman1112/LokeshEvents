@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+/* Fonts self-hosted via next/font (see layout.tsx) */
 
 :root {
   --bg-primary: #0a0a0f;
@@ -21,8 +21,8 @@
   --radius: 16px;
   --radius-sm: 10px;
   --radius-xs: 6px;
-  --font-display: 'Playfair Display', serif;
-  --font-body: 'Inter', sans-serif;
+  --font-display: var(--font-display, 'Playfair Display'), serif;
+  --font-body: var(--font-body, 'Inter'), sans-serif;
   --transition: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
