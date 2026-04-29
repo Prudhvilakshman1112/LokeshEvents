@@ -33,6 +33,33 @@ const P = {
   paperShot: 60, snowBottle: 35, beachDay: 5500, beachEvening: 7500,
 };
 
+/** Master list of every add-on a customer can choose from */
+const ALL_ADDONS: CustomizableItem[] = [
+  { name: "Teddy Doll", qty: 0, unitPrice: P.teddy },
+  { name: "Stranger Member", qty: 0, unitPrice: P.stranger },
+  { name: "Half KG Cool Cake", qty: 0, unitPrice: P.cake },
+  { name: "Photo Frame (A4)", qty: 0, unitPrice: P.frame },
+  { name: "Calendar Book", qty: 0, unitPrice: P.calendar },
+  { name: "Printed Mug", qty: 0, unitPrice: P.mug },
+  { name: "Greeting Card", qty: 0, unitPrice: P.greetingCard },
+  { name: "Fire Gun", qty: 0, unitPrice: P.fireGun },
+  { name: "6x8 Inch Miniature", qty: 0, unitPrice: P.mini6x8 },
+  { name: "Editing Video", qty: 0, unitPrice: P.editVideo },
+  { name: "Dancer Member", qty: 0, unitPrice: P.dancer },
+  { name: "Bike Surprise Flexi", qty: 0, unitPrice: P.bikeFlexi },
+  { name: "Biker with Vehicle", qty: 0, unitPrice: P.bikerVehicle },
+  { name: "Flower Bouquet", qty: 0, unitPrice: P.bouquet },
+  { name: "Bluetooth Speaker", qty: 0, unitPrice: P.speaker },
+  { name: "Fire Blade", qty: 0, unitPrice: P.fireBlade },
+  { name: "Heart Keychain", qty: 0, unitPrice: P.heartKeychain },
+  { name: "8x10 Inch Miniature", qty: 0, unitPrice: P.mini8x10 },
+  { name: "12x18 Inch Miniature", qty: 0, unitPrice: P.mini12x18 },
+  { name: "15x24 Inch Miniature", qty: 0, unitPrice: P.mini15x24 },
+  { name: "Car Decoration", qty: 0, unitPrice: P.carDecor },
+  { name: "Paper Shot", qty: 0, unitPrice: P.paperShot },
+  { name: "Snow Bottle", qty: 0, unitPrice: P.snowBottle },
+];
+
 export const catalogItems: CatalogItem[] = [
   {
     id: "doll-surprise",
@@ -194,7 +221,7 @@ export const catalogItems: CatalogItem[] = [
       { name: "Single Flower", qty: 4, unitPrice: 100 },
       { name: "Half KG Cool Cake", qty: 1, unitPrice: 500 },
       { name: "Photo Frame (A4)", qty: 1, unitPrice: 450 },
-      { name: "Cupboard Miniature (8x10)", qty: 1, unitPrice: 3500 },
+      { name: "8x10 Inch Miniature", qty: 1, unitPrice: P.mini8x10 },
       { name: "Calendar Book", qty: 1, unitPrice: 450 },
       { name: "Printed Mug", qty: 1, unitPrice: 450 },
       { name: "Fire Gun", qty: 0, unitPrice: 150 },
@@ -247,7 +274,7 @@ export const catalogItems: CatalogItem[] = [
     eventFlow: ["Car decoration setup", "Bike surprise with flexi banner", "Teddy & bouquet presentation", "Midnight countdown & surprise", "Cake cutting at midnight", "Snow bottles & paper shots finale"],
     customizableItems: [
       { name: "Car Decoration", qty: 1, unitPrice: 6000 },
-      { name: "Bike Surprise Flexi Banner", qty: 1, unitPrice: 660 },
+      { name: "Bike Surprise Flexi", qty: 1, unitPrice: P.bikeFlexi },
       { name: "Teddy Doll", qty: 1, unitPrice: 1500 },
       { name: "Flower Bouquet", qty: 1, unitPrice: 550 },
       { name: "Half KG Cool Cake", qty: 1, unitPrice: 500 },
@@ -313,7 +340,7 @@ export const catalogItems: CatalogItem[] = [
       { name: "Cheers", qty: 2, unitPrice: 150 },
       { name: "Bluetooth Speaker", qty: 1, unitPrice: 300 },
       { name: "Photo Frame (A4)", qty: 1, unitPrice: 450 },
-      { name: "Cupboard Miniature (8x10)", qty: 1, unitPrice: 3500 },
+      { name: "8x10 Inch Miniature", qty: 1, unitPrice: P.mini8x10 },
       { name: "Calendar Book", qty: 1, unitPrice: 450 },
       { name: "Printed Mug", qty: 1, unitPrice: 450 },
       { name: "Half KG Cool Cake", qty: 0, unitPrice: 500 },
@@ -353,6 +380,16 @@ export const catalogItems: CatalogItem[] = [
     ],
   },
 ];
+
+// Ensure every catalog item offers the complete add-on menu
+for (const item of catalogItems) {
+  const existing = new Set(item.customizableItems.map((ci) => ci.name));
+  for (const addon of ALL_ADDONS) {
+    if (!existing.has(addon.name)) {
+      item.customizableItems.push({ ...addon });
+    }
+  }
+}
 
 export const portfolioImages = [
   { src: "/images/portfolio-wedding.png", title: "Beach Wedding Decor", category: "Wedding" },
