@@ -48,7 +48,7 @@ export default function CatalogModal({ item, onClose }: Props) {
         <div className={styles.layout}>
           <div className={styles.imgCol}>
             <div className={styles.carouselWrap}>
-              <ImageCarousel images={item.images} alt={item.title} size="modal" showThumbnails />
+              <ImageCarousel images={item.images} videos={item.liveVideos} alt={item.title} size="modal" showThumbnails />
               <span className={styles.discount}>{discount}% OFF</span>
             </div>
           </div>
@@ -100,7 +100,11 @@ export default function CatalogModal({ item, onClose }: Props) {
 
             <div className={styles.metaRow}>
               <span><MapPin size={14} /> Vizag Beach Road</span>
-              <span><Clock size={14} /> 1-2 Hours</span>
+              {item.timings ? (
+                <span><Clock size={14} /> {item.timings}</span>
+              ) : (
+                <span><Clock size={14} /> 1-2 Hours</span>
+              )}
             </div>
 
             {/* ── Customize Toggle ── */}

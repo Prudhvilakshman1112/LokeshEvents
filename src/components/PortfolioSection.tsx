@@ -1,15 +1,27 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Play, X } from "lucide-react";
 import { portfolioImages } from "@/data/catalog";
+import { liveVideos, liveImages } from "@/data/liveVideos";
 import AnimatedSection from "./AnimatedSection";
 import styles from "./PortfolioSection.module.css";
 
-const categories = ["All", ...Array.from(new Set(portfolioImages.map((p) => p.category)))];
+// Merge categories from portfolio images, live videos, and live images
+const allCats = new Set([
+  ...portfolioImages.map((p) => p.category),
+  ...liveVideos.map((v) => v.category),
+  ...liveImages.map((i) => i.category),
+]);
+const categories = ["All", ...Array.from(allCats)];
 
 export default function PortfolioSection() {
   const [active, setActive] = useState("All");
-  const filtered = active === "All" ? portfolioImages : portfolioImages.filter((p) => p.category === active);
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+
+  const filteredImages = active === "All" ? portfolioImages : portfolioImages.filter((p) => p.category === active);
+  const filteredVideos = active === "All" ? liveVideos : liveVideos.filter((v) => v.category === active);
+  const filteredLiveImages = active === "All" ? liveImages : liveImages.filter((i) => i.category === active);
 
   return (
     <section id="portfolio" className={styles.section}>
@@ -36,9 +48,10 @@ export default function PortfolioSection() {
           </div>
         </AnimatedSection>
 
+        {/* AI-generated portfolio images */}
         <motion.div className={styles.grid} layout>
           <AnimatePresence mode="popLayout">
-            {filtered.map((img, i) => (
+            {filteredImages.map((img, i) => (
               <motion.div
                 key={img.src}
                 className={styles.card}
@@ -60,20 +73,100 @@ export default function PortfolioSection() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Slots for live images/videos */}
-        <AnimatedSection delay={0.2}>
-          <div className={styles.liveSlots}>
-            <p className={styles.liveLabel}>📸 Live Event Gallery Coming Soon</p>
-            <div className={styles.slotGrid}>
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className={styles.slot}>
-                  <span>Live Photo / Video</span>
-                </div>
-              ))}
+        {/* Live event media (videos + images) */}
+        {(filteredVideos.length > 0 || filteredLiveImages.length > 0) && (
+          <AnimatedSection delay={0.2}>
+            <div className={styles.liveSection}>
+              <div className={styles.liveHeader}>
+                <h3 className={styles.liveTitle}>🎬 Live Event Highlights</h3>
+                <p className={styles.liveSub}>Real moments from our events — scroll to explore, tap to play</p>
+              </div>
+              <div className={styles.videoRow}>
+                {filteredVideos.map((vid, i) => (
+                  <motion.div
+                    key={`${vid.src}-${vid.category}-${i}`}
+                    className={styles.videoCard}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: i * 0.06 }}
+                  >
+                    <div
+                      className={styles.videoWrap}
+                      onClick={() => setPlayingVideo(vid.src)}
+                    >
+                      <video
+                        src={vid.src}
+                        className={styles.videoThumb}
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        onMouseEnter={(e) => e.currentTarget.play()}
+                        onMouseLeave={(e) => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }}
+                      />
+                      <div className={styles.videoPlayBtn}>
+                        <Play size={28} fill="#fff" />
+                      </div>
+                      <div className={styles.videoInfo}>
+                        <span className={styles.videoTitle}>{vid.title}</span>
+                        <span className={styles.videoCat}>{vid.category}</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+                {filteredLiveImages.map((img, i) => (
+                  <motion.div
+                    key={`limg-${img.src}-${i}`}
+                    className={styles.liveImgCard}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: (filteredVideos.length + i) * 0.06 }}
+                  >
+                    <img src={img.src} alt={img.title} className={styles.liveImgThumb} loading="lazy" />
+                    <div className={styles.videoInfo}>
+                      <span className={styles.videoTitle}>{img.title}</span>
+                      <span className={styles.videoCat}>{img.category}</span>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-          </div>
-        </AnimatedSection>
+          </AnimatedSection>
+        )}
       </div>
+
+      {/* Fullscreen video player */}
+      <AnimatePresence>
+        {playingVideo && (
+          <motion.div
+            className={styles.fullOverlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setPlayingVideo(null)}
+          >
+            <motion.div
+              className={styles.fullPlayer}
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className={styles.fullClose} onClick={() => setPlayingVideo(null)}>
+                <X size={22} />
+              </button>
+              <video
+                src={playingVideo}
+                className={styles.fullVideo}
+                controls
+                autoPlay
+                playsInline
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

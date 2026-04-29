@@ -99,23 +99,16 @@ function VideoCard({
   index: number;
 }) {
   const [playing, setPlaying] = useState(false);
-  const isEmpty = !video.videoUrl;
 
   return (
     <motion.div
       className={styles.videoCard}
-      initial={{ opacity: 0, scale: 0.92 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, x: 40 }}
+      whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      {isEmpty ? (
-        <div className={styles.videoPlaceholder}>
-          <Film size={36} className={styles.placeholderIcon} />
-          <span className={styles.placeholderLabel}>Coming Soon</span>
-          <span className={styles.placeholderSub}>{video.customerName}</span>
-        </div>
-      ) : playing ? (
+      {playing ? (
         <video
           className={styles.videoPlayer}
           src={video.videoUrl}
@@ -129,6 +122,16 @@ function VideoCard({
           onClick={() => setPlaying(true)}
           aria-label={`Play ${video.title}`}
         >
+          <video
+            src={video.videoUrl}
+            className={styles.videoPreview}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            onMouseEnter={(e) => e.currentTarget.play()}
+            onMouseLeave={(e) => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }}
+          />
           <div className={styles.playOverlay}>
             <motion.div
               className={styles.playBtn}
@@ -204,7 +207,7 @@ export default function ReviewsSection() {
         </AnimatedSection>
 
         <AnimatedSection delay={0.1}>
-          <div className={styles.videoGrid}>
+          <div className={styles.videoRow}>
             {customerVideos.map((v, i) => (
               <VideoCard key={v.id} video={v} index={i} />
             ))}

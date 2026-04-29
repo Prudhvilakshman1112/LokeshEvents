@@ -1,5 +1,5 @@
 "use client";
-import { Check } from "lucide-react";
+import { Check, Clock } from "lucide-react";
 import WhatsAppSvg from "./WhatsAppSvg";
 import ImageCarousel from "./ImageCarousel";
 import { WHATSAPP_NUMBER } from "@/data/catalog";
@@ -22,7 +22,7 @@ export default function CatalogCard({ item, onViewDetails }: Props) {
   return (
     <div className={styles.card}>
       <div className={styles.imgWrap}>
-        <ImageCarousel images={item.images} alt={item.title} size="card" />
+        <ImageCarousel images={item.images} videos={item.liveVideos} alt={item.title} size="card" />
         <span className={styles.discount}>{discount}% OFF</span>
         <span className={styles.category}>{item.category}</span>
       </div>
@@ -40,6 +40,12 @@ export default function CatalogCard({ item, onViewDetails }: Props) {
             <span key={b} className="badge">{b}</span>
           ))}
         </div>
+
+        {item.timings && (
+          <div className={styles.timingsBar}>
+            <Clock size={13} /> {item.timings}
+          </div>
+        )}
 
         <ul className={styles.items}>
           {item.itemsIncluded.slice(0, 4).map((it) => (

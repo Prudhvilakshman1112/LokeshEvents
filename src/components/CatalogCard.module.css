@@ -37,7 +37,14 @@
   color: var(--text-primary); margin-bottom: 10px;
 }
 .pricing { margin-bottom: 14px; display: flex; align-items: baseline; }
-.badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.timingsBar {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.78rem; color: var(--gold-light);
+  background: rgba(212,168,83,0.08); padding: 6px 12px;
+  border-radius: 8px; margin-bottom: 14px;
+  border: 1px solid rgba(212,168,83,0.15);
+}
 .items { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
 .items li {
   display: flex; align-items: center; gap: 8px;
