@@ -391,6 +391,35 @@ for (const item of catalogItems) {
   }
 }
 
+// ── Price Harmonization ──
+// If the sum of included items < package price, scale unit prices proportionally
+// so the customizer total always matches the advertised package price.
+// (When sum >= price the package is already shown as a discount — no change needed.)
+for (const item of catalogItems) {
+  const included = item.customizableItems.filter((ci) => ci.qty > 0);
+  const rawSum = included.reduce((s, ci) => s + ci.qty * ci.unitPrice, 0);
+
+  if (rawSum >= item.price || rawSum === 0) continue;
+
+  const scale = item.price / rawSum;
+
+  // Sort by contribution (descending) — the top item absorbs rounding remainder
+  const sorted = [...included].sort(
+    (a, b) => b.qty * b.unitPrice - a.qty * a.unitPrice
+  );
+  const anchor = sorted[0];
+
+  let allocated = 0;
+  for (const ci of included) {
+    if (ci === anchor) continue;
+    ci.unitPrice = Math.round(ci.unitPrice * scale);
+    allocated += ci.qty * ci.unitPrice;
+  }
+
+  // Anchor item absorbs the exact remainder so the total is pixel-perfect
+  anchor.unitPrice = Math.round((item.price - allocated) / anchor.qty);
+}
+
 export const portfolioImages = [
   { src: "/images/portfolio-wedding.png", title: "Beach Wedding Decor", category: "Wedding" },
   { src: "/images/portfolio-birthday.png", title: "Birthday Bash", category: "Birthday" },
