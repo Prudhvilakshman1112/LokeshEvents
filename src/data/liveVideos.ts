@@ -36,9 +36,9 @@ export const liveVideos: LiveVideo[] = [
   // Candle light Dinner
   { src: "/videos/VID-20260428-WA0121.mp4", title: "Candlelight Dinner — Clip 1", category: "Dinner" },
   { src: "/videos/VID-20260428-WA0122.mp4", title: "Candlelight Dinner — Clip 2", category: "Dinner" },
-  // Candlelight reused under Proposal
-  { src: "/videos/VID-20260428-WA0121.mp4", title: "Romantic Setup — Clip 1", category: "Proposal" },
-  { src: "/videos/VID-20260428-WA0122.mp4", title: "Romantic Setup — Clip 2", category: "Proposal" },
+  // Proposal Decor
+  { src: "/videos/proposal-decor-beach-road.mp4", title: "Proposal Decor — Clip 1", category: "Proposal" },
+  { src: "/videos/proposal-decor-vizag.mp4", title: "Proposal Decor — Clip 2", category: "Proposal" },
   // Midnight Surprise
   { src: "/videos/VID-20260428-WA0123.mp4", title: "Midnight Surprise — Clip 1", category: "Midnight" },
   { src: "/videos/VID-20260428-WA0124.mp4", title: "Midnight Surprise — Clip 2", category: "Midnight" },

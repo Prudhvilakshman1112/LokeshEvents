@@ -356,7 +356,7 @@ export const catalogItems: CatalogItem[] = [
     description: "The most premium proposal experience at Vizag Beach Road! \"Will you marry me?\" marquee letters, choice of 3 decoration types, fire entry, generator, Bluetooth speaker, and a complete celebration package. Make the moment unforgettable!",
     image: "/images/proposal-decor.png",
     images: ["/images/proposal-decor.png"],
-    liveImages: [], liveVideos: ["/videos/VID-20260428-WA0121.mp4", "/videos/VID-20260428-WA0122.mp4"],
+    liveImages: [], liveVideos: ["/videos/proposal-decor-beach-road.mp4", "/videos/proposal-decor-vizag.mp4"],
     itemsIncluded: ["\"Will you marry me?\" Marquee Letters", "Choice of 3 Types of Decorations", "Police Permission Included", "Generator", "Flower Bouquet", "Half KG Cool Cake", "Bluetooth Speaker", "Fire Entry Setup", "2 Fire Guns", "Photo Frame", "6x8 inch Miniature", "Calendar", "Printed Mug", "Greeting Card"],
     benefits: ["Stunning marquee letter proposal", "3 decoration style choices", "Generator-powered setup", "Fire entry spectacle", "Complete personalized gift collection", "Bluetooth speaker for music", "Police permission handled", "Most premium Beach Road experience"],
     badges: ["Beach Road Setup", "Police Permission", "Marquee Letters", "Fire Entry", "Most Premium"],
