@@ -36,6 +36,7 @@
 @media(max-width:768px) {
   .inner { padding: 0 16px; }
   .logoL { font-size: 1.4rem; }
+  .logoImg { width: 30px; height: 30px; }
   .logoText { font-size: 0.75rem; letter-spacing: 1px; }
   .links { gap: 16px; }
   .link { font-size: 0.75rem; letter-spacing: 0; }

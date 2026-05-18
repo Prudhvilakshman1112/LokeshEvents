@@ -44,6 +44,14 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://lkeventsvizag.com",
     siteName: "LK Events",
+    images: [
+      {
+        url: "/images/lk-logo.png",
+        width: 512,
+        height: 512,
+        alt: "LK Events Vizag Logo",
+      },
+    ],
   },
   robots: { index: true, follow: true },
 };
