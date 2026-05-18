@@ -67,6 +67,7 @@ export default function HeroSection() {
         </motion.div>
 
         <h1 className={styles.title}>
+          <span className="sr-only">LK Events Vizag —{" "}</span>
           {titleWords.map((word, i) => (
             <motion.span
               key={word}

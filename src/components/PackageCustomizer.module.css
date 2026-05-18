@@ -248,6 +248,84 @@
   pointer-events: none;
 }
 
+/* ===== "Only Decor" special option ===== */
+.onlyDecorCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(212, 168, 83, 0.06));
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  flex-wrap: wrap;
+}
+.onlyDecorInfo {
+  flex: 1;
+  min-width: 160px;
+}
+.onlyDecorTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #c084fc;
+  margin-bottom: 4px;
+}
+.onlyDecorDesc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  max-width: 280px;
+}
+.onlyDecorRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.onlyDecorPrice {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #c084fc;
+}
+.onlyDecorBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(168, 85, 247, 0.1));
+  color: #e9d5ff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+.onlyDecorBtn:hover {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.35), rgba(168, 85, 247, 0.2));
+  border-color: rgba(168, 85, 247, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.2);
+}
+
+/* Active Only Decor row highlight */
+.onlyDecorActiveItem {
+  background: rgba(168, 85, 247, 0.06) !important;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: var(--radius-xs);
+}
+.onlyDecorActiveItem .itemName {
+  color: #c084fc;
+}
+.onlyDecorActiveItem .lineTotal {
+  color: #c084fc;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 600px) {
   .wrapper { padding: 14px; }
@@ -256,4 +334,7 @@
   .totalBar { flex-direction: column; align-items: stretch; text-align: center; }
   .totalInfo { justify-content: center; }
   .sendBtn { justify-content: center; }
+  .onlyDecorCard { flex-direction: column; text-align: center; align-items: stretch; }
+  .onlyDecorDesc { max-width: unset; }
+  .onlyDecorRight { justify-content: center; }
 }

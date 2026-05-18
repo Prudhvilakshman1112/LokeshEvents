@@ -1,11 +1,13 @@
 "use client";
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus, Sparkles, Trash2, ShoppingBag } from "lucide-react";
+import { Plus, Minus, Sparkles, Trash2, ShoppingBag, Palette } from "lucide-react";
 import WhatsAppSvg from "./WhatsAppSvg";
 import EnquiryFormModal from "./EnquiryFormModal";
 import type { CustomizableItem, CatalogItem } from "@/data/catalog";
 import styles from "./PackageCustomizer.module.css";
+
+const ONLY_DECOR_NAME = "Only Decor";
 
 interface Props {
   item: CatalogItem;
@@ -18,17 +20,43 @@ export default function PackageCustomizer({ item }: Props) {
   const [showEnquiry, setShowEnquiry] = useState(false);
 
   const updateQty = (index: number, delta: number) => {
-    setItems((prev) =>
-      prev.map((it, i) => {
+    setItems((prev) => {
+      const target = prev[index];
+      const newQty = Math.max(0, target.qty + delta);
+
+      // ── "Only Decor" activation: reset everything else ──
+      if (target.name === ONLY_DECOR_NAME && target.qty === 0 && newQty > 0) {
+        return prev.map((it, i) => {
+          if (i === index) return { ...it, qty: 1 }; // cap at 1
+          return { ...it, qty: 0 };                  // reset others
+        });
+      }
+
+      // Cap "Only Decor" at qty 1
+      if (target.name === ONLY_DECOR_NAME && newQty > 1) {
+        return prev;
+      }
+
+      return prev.map((it, i) => {
         if (i !== index) return it;
-        const newQty = Math.max(0, it.qty + delta);
         return { ...it, qty: newQty };
-      })
-    );
+      });
+    });
   };
 
-  const activeItems = useMemo(() => items.filter((it) => it.qty > 0), [items]);
-  const addOnItems = useMemo(() => items.filter((it) => it.qty === 0), [items]);
+  // ── Derived lists ──
+  const onlyDecorIdx = items.findIndex((it) => it.name === ONLY_DECOR_NAME);
+  const onlyDecorItem = onlyDecorIdx >= 0 ? items[onlyDecorIdx] : null;
+  const isOnlyDecorActive = onlyDecorItem ? onlyDecorItem.qty > 0 : false;
+
+  const activeItems = useMemo(
+    () => items.filter((it) => it.qty > 0),
+    [items]
+  );
+  const addOnItems = useMemo(
+    () => items.filter((it) => it.qty === 0 && it.name !== ONLY_DECOR_NAME),
+    [items]
+  );
 
   const customTotal = useMemo(
     () => items.reduce((sum, it) => sum + it.qty * it.unitPrice, 0),
@@ -58,6 +86,36 @@ export default function PackageCustomizer({ item }: Props) {
           Add, remove or adjust quantities — get a live quote instantly
         </p>
 
+        {/* ---------- "Only Decor" special option ---------- */}
+        {onlyDecorItem && !isOnlyDecorActive && (
+          <motion.div
+            className={styles.onlyDecorCard}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className={styles.onlyDecorInfo}>
+              <div className={styles.onlyDecorTitle}>
+                <Palette size={16} />
+                <span>Only Decor</span>
+              </div>
+              <p className={styles.onlyDecorDesc}>
+                Start fresh with just the decoration setup — all existing items
+                will be removed.
+              </p>
+            </div>
+            <div className={styles.onlyDecorRight}>
+              <span className={styles.onlyDecorPrice}>₹5,000</span>
+              <button
+                className={styles.onlyDecorBtn}
+                onClick={() => updateQty(onlyDecorIdx, 1)}
+              >
+                <Palette size={14} /> Choose Only Decor
+              </button>
+            </div>
+          </motion.div>
+        )}
+
         {/* ---------- Included items ---------- */}
         <div className={styles.listLabel}>
           <ShoppingBag size={14} /> Included Items
@@ -69,7 +127,7 @@ export default function PackageCustomizer({ item }: Props) {
               return (
                 <motion.li
                   key={it.name}
-                  className={styles.item}
+                  className={`${styles.item} ${it.name === ONLY_DECOR_NAME ? styles.onlyDecorActiveItem : ""}`}
                   layout
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -77,7 +135,10 @@ export default function PackageCustomizer({ item }: Props) {
                   transition={{ duration: 0.25 }}
                 >
                   <div className={styles.itemInfo}>
-                    <span className={styles.itemName}>{it.name}</span>
+                    <span className={styles.itemName}>
+                      {it.name === ONLY_DECOR_NAME && <Palette size={14} style={{ marginRight: 6 }} />}
+                      {it.name}
+                    </span>
                     <span className={styles.itemUnit}>₹{it.unitPrice.toLocaleString("en-IN")} each</span>
                   </div>
                   <div className={styles.qtyControls}>
@@ -97,13 +158,15 @@ export default function PackageCustomizer({ item }: Props) {
                     >
                       {it.qty}
                     </motion.span>
-                    <button
-                      className={styles.qtyBtn}
-                      onClick={() => updateQty(idx, 1)}
-                      aria-label={`Increase ${it.name}`}
-                    >
-                      <Plus size={13} />
-                    </button>
+                    {it.name !== ONLY_DECOR_NAME && (
+                      <button
+                        className={styles.qtyBtn}
+                        onClick={() => updateQty(idx, 1)}
+                        aria-label={`Increase ${it.name}`}
+                      >
+                        <Plus size={13} />
+                      </button>
+                    )}
                   </div>
                   <span className={styles.lineTotal}>
                     ₹{(it.qty * it.unitPrice).toLocaleString("en-IN")}

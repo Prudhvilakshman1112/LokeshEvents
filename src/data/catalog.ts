@@ -391,6 +391,21 @@ for (const item of catalogItems) {
   }
 }
 
+// ── "Only Decor" option for decoration / dinner / proposal packages ──
+// When selected it resets every other item, giving a ₹5 000 decor-only base.
+const ONLY_DECOR_IDS = new Set([
+  "daytime-beach-decoration",
+  "midnight-surprise",
+  "evening-beach-decoration",
+  "candlelight-dinner",
+  "proposal-decor",
+]);
+for (const item of catalogItems) {
+  if (ONLY_DECOR_IDS.has(item.id)) {
+    item.customizableItems.push({ name: "Only Decor", qty: 0, unitPrice: 5000 });
+  }
+}
+
 // ── Price Harmonization ──
 // If the sum of included items < package price, scale unit prices proportionally
 // so the customizer total always matches the advertised package price.

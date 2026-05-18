@@ -24,9 +24,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "LK Events — Premium Surprise & Event Planning | Vizag Beach Road",
+  title: "LK Events Vizag | Professional Event Management & Planning",
   description:
-    "Vizag's premier event management company. Surprise celebrations, candlelight dinners, prank surprises & more on Beach Road, Visakhapatnam. Book now via WhatsApp!",
+    "LK Events Vizag offers premier event planning services in Visakhapatnam. Specializing in surprise celebrations, candlelight dinners, beach decorations, and proposal setups. Contact us for the best event management in Vizag.",
   keywords: [
     "LK Events",
     "Lokesh Events",
